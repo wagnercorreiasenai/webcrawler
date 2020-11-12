@@ -27,8 +27,11 @@ libxml_use_internal_errors(true);
 $dom->loadHTML($html);
 libxml_clear_errors();
 
-//Caputura as tags p
+//Caputura as tags div
 $tagsDiv = $dom->getElementsByTagName('div');
+
+//Array de parágrafos
+$arrayParagrafos = [];
 
 foreach ($tagsDiv as $div) {
     $classe = $div->getAttribute('class');
@@ -39,7 +42,12 @@ foreach ($tagsDiv as $div) {
         foreach ($divsInternas as $divInterna) {
             $classeInterna = $divInterna->getAttribute('class');
             if ($classeInterna == 'box_announce') {
-                echo $divInterna->nodeValue;
+                $tagsP = $divInterna->getElementsByTagName('p');
+                
+                foreach ($tagsP as $p) {
+                    $arrayParagrafos [] = $p->nodeValue;
+                }
+                
                 break;
             }
         }
@@ -49,3 +57,6 @@ foreach ($tagsDiv as $div) {
     
     
 }
+
+//Exibe o array de parágrafos
+print_r($arrayParagrafos);
