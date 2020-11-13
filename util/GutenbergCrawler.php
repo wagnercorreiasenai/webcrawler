@@ -9,7 +9,7 @@ class GutenbergCrawler {
 
     public function __construct() {
         //Seta os valores das variáveis
-        $this->url = "http://gutenberg.org/";
+        $this->url = "https://br.investing.com/news/";
         $this->proxy = "10.1.21.254:3128";
         $this->dom = new DOMDocument();
     }
@@ -22,8 +22,12 @@ class GutenbergCrawler {
         $arrayparagrafos = $this->getArrayParagrafos($tagsP);
         return $arrayparagrafos;
     }
-    
+
     private function getContextoConexao() {
+
+        $fake_user_agent = "Mozilla/5.0 (X11; Linux i686) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.47 Safari/536.11";
+        ini_set('user_agent', $fake_user_agent);
+
         $arrayConfig = array(
             'http' => array(
                 'proxy' => $this->proxy,
